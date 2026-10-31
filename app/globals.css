@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Premium Champagne Gold Luxury Palette */
+  --gold-primary: #C6A66B;
+  --gold-antique: #A88955;
+  --gold-brushed: #B69A70;
+  --gold-muted: #D1BA91;
+  --gold-bronze: #80633D;
+  --gold-pale: #E2D2B5;
+
+  /* Supporting Colours */
+  --espresso-deep: #292019;
+  --ivory-warm: #F3EFE7;
+  --beige-marble: #EAE4D9;
+  --taupe-warm: #685C50;
+  --pure-white: #FFFFFF;
+
+  --background: #F3EFE7;
+  --primary: #292019;
+  --secondary: #C6A66B;
+  --accent: #B69A70;
+  --surface: #FFFFFF;
+}
+
+html {
+  background-color: var(--background);
+  color: var(--primary);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: auto !important; /* Ensure Lenis & GSAP have full control */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--primary);
+  margin: 0;
+  padding: 0;
+  overflow-x: clip; /* Cleanly clip horizontal overflow without breaking position:sticky or GSAP pinning */
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* GSAP Pinning Fix: Ensure pin-spacer behaves smoothly */
+.pin-spacer {
+  pointer-events: auto !important;
+}
+
+/* Custom Minimal Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F3EF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8B79D;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A58B68;
+}
+
+/* Utility to completely hide scrollbars where needed (e.g. horizontal categories) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+[data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Canvas fix for high DPI and container clipping */
+canvas {
+  touch-action: pan-y;
+  outline: none;
+}
