@@ -66,7 +66,7 @@ export function InquirySection() {
               </div>
               <div className="flex items-center space-x-3 text-xs font-nav text-primary/80">
                 <Building className="w-4 h-4 text-secondary" />
-                <span>Private Showrooms in Milan, Tokyo, New York, Stockholm</span>
+                <span>Private Showrooms in Mumbai, New Delhi, Bengaluru, Kolkata</span>
               </div>
             </div>
           </div>

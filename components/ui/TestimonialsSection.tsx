@@ -21,15 +21,15 @@ const REVIEWS = [
   {
     quote:
       'A masterclass in sculptural restraint. Where modern fast-furniture relies on veneer illusions, Kasama honors solid timber grain continuity that grows richer with every passing year.',
-    publication: 'Elle Decor Italia',
-    issue: 'Milano Salone Special',
+    publication: 'Architectural Digest India',
+    issue: 'Design Excellence Special',
     stars: 5,
   },
   {
     quote:
       'The tactile organic wax-oil finish is addictive to the touch. Our guests invariably pause to run their palms across the chamfered undercut before even sitting down.',
-    publication: 'Matteo & Elena R.',
-    issue: 'Private Villa Collectors, Bellagio',
+    publication: 'Vikram & Radhika M.',
+    issue: 'Private Estate Collectors, Malabar Hill, Mumbai',
     stars: 5,
   },
 ];

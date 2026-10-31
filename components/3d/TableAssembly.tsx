@@ -12,6 +12,7 @@ function easeInOutCubic(x: number): number {
 
 export function TableAssembly() {
   const scrollProgress = useFurnitureStore((state) => state.scrollProgress);
+  const smoothP = useRef(0);
 
   // Component Mesh References
   const slabLeftRef = useRef<THREE.Group>(null);
@@ -101,9 +102,11 @@ export function TableAssembly() {
   }, []);
 
   // Frame loop mapping scroll progress to components
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
-    const p = scrollProgress;
+    // Buttery smooth frame-rate independent dampening
+    smoothP.current = THREE.MathUtils.damp(smoothP.current, scrollProgress, 11, delta);
+    const p = smoothP.current;
 
     // Stage 1 Idle float factor (diminishes as user starts scrolling)
     const idleFactor = Math.max(0, 1 - p / 0.12);

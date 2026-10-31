@@ -81,7 +81,7 @@ export function Navbar() {
             ATELIER KASAMA
           </span>
           <span className="font-nav text-[9px] tracking-ultra text-taupe uppercase group-hover:text-gold-antique transition-colors duration-300">
-            Milan · Stockholm · Tokyo
+            Mumbai · New Delhi · Bengaluru
           </span>
         </a>
 

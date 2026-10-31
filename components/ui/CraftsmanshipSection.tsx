@@ -67,7 +67,7 @@ export function CraftsmanshipSection() {
             Craftsmanship as an Uncompromising Discipline.
           </h2>
           <p className="font-body text-base md:text-lg text-primary/70 font-light mt-6 leading-relaxed">
-            In our Milanese and Scandinavian workshops, time is treated as a raw material.
+            In our ateliers across Mumbai, New Delhi, and Bengaluru, time is treated as a raw material.
             We honor centuries of joinery traditions while deploying aerospace-grade tolerances.
           </p>
         </div>

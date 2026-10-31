@@ -320,12 +320,12 @@ export function FeaturedCollection() {
                       <span className="font-nav text-[10px] uppercase tracking-widest text-gold-antique block">
                         Investment
                       </span>
-                      <div className="flex items-baseline space-x-2">
+                      <div className="flex items-baseline space-x-1.5">
                         <span className="font-nav text-xl font-medium text-primary">
-                          ${product.price.toLocaleString()}
+                          ₹{product.price.toLocaleString('en-IN')}
                         </span>
-                        <span className="text-[10px] font-body text-taupe">
-                          USD
+                        <span className="text-[10px] font-body text-taupe font-medium">
+                          INR
                         </span>
                       </div>
                     </div>

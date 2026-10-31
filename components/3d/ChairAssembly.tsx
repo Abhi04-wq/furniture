@@ -30,6 +30,7 @@ function SingleChair({
   fabricTexture,
 }: SingleChairProps) {
   const scrollProgress = useFurnitureStore((state) => state.scrollProgress);
+  const smoothP = useRef(0);
 
   const rootRef = useRef<THREE.Group>(null);
   const legsRef = useRef<THREE.Group>(null);
@@ -68,11 +69,13 @@ function SingleChair({
     };
   }, [index]);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!rootRef.current) return;
 
     const time = state.clock.getElapsedTime();
-    const p = scrollProgress;
+    // Buttery smooth frame-rate independent dampening
+    smoothP.current = THREE.MathUtils.damp(smoothP.current, scrollProgress, 11, delta);
+    const p = smoothP.current;
 
     // Idle floating wobble during broken Stage 1
     const idleFactor = Math.max(0, 1 - p / 0.12);

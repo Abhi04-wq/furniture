@@ -133,7 +133,7 @@ export function StageOverlayText() {
                   <span>Phase 05 · Complete Masterpiece</span>
                 </div>
                 <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-primary font-normal leading-[1.12] tracking-tight mb-2 sm:mb-2.5">
-                  The Italian <span className="text-gold-primary italic font-serif">Dining Salon</span>.
+                  The Grand <span className="text-gold-primary italic font-serif">Dining Salon</span>.
                 </h2>
                 <p className="font-body text-xs sm:text-sm text-taupe font-light leading-relaxed mb-3">
                   Symmetrical Calacatta Gold marble, dark walnut vitrines, geometric brass chandeliers, and six bespoke dining chairs in quiet harmony.

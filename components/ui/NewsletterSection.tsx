@@ -47,7 +47,7 @@ export function NewsletterSection() {
             The Private Gazette.
           </h2>
           <p className="font-body text-base md:text-lg text-surface/70 max-w-xl mx-auto mt-4 font-light leading-relaxed">
-            Invitations to private Milan Design Week previews, limited timber provenance
+            Invitations to private India Art & Design Pavilion showcases, limited timber provenance
             releases, and essays on architectural furniture construction.
           </p>
         </div>

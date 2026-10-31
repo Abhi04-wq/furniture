@@ -16,6 +16,7 @@ export function CameraController() {
   const targetCamPos = useRef(new THREE.Vector3(0, 2.2, 7.6));
   const targetLookAt = useRef(new THREE.Vector3(0, 1.05, -0.2));
   const currentLookAt = useRef(new THREE.Vector3(0, 1.05, -0.2));
+  const smoothP = useRef(0);
 
   // Determine mobile aspect ratio dynamically
   const isMobile = size.width < 768 || size.width < size.height;
@@ -23,7 +24,9 @@ export function CameraController() {
   const mobileHeightOffset = isMobile ? 0.25 : 0.0;
 
   useFrame((state, delta) => {
-    const p = scrollProgress;
+    // Buttery smooth frame-rate independent dampening matching furniture geometry
+    smoothP.current = THREE.MathUtils.damp(smoothP.current, scrollProgress, 11, delta);
+    const p = smoothP.current;
     const time = state.clock.getElapsedTime();
     const pointer = state.pointer; // [-1 to 1] normalized mouse position for subtle parallax
 

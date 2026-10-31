@@ -7,8 +7,8 @@ export const initialProducts = [
     collection: "Milanese Canaletto Suite",
     collectionSlug: "milanese-suite",
     badge: "Masterpiece Suite",
-    price: 4850,
-    currency: "USD",
+    price: 385000,
+    currency: "INR",
     rating: 4.98,
     reviewsCount: 42,
     dimensions: {
@@ -52,8 +52,8 @@ export const initialProducts = [
     collection: "Milanese Canaletto Suite",
     collectionSlug: "milanese-suite",
     badge: "Matching Suite",
-    price: 1150,
-    currency: "USD",
+    price: 85000,
+    currency: "INR",
     rating: 4.96,
     reviewsCount: 68,
     dimensions: {
@@ -97,8 +97,8 @@ export const initialProducts = [
     collection: "Milanese Canaletto Suite",
     collectionSlug: "milanese-suite",
     badge: "New Silhouette",
-    price: 1480,
-    currency: "USD",
+    price: 115000,
+    currency: "INR",
     rating: 4.94,
     reviewsCount: 29,
     dimensions: {
@@ -127,7 +127,8 @@ export const initialProducts = [
     image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80",
     gallery: [
       "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1580481077195-c328a37db71a?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=80"
     ],
     story: "Positioned at the head of the table, Bellini commands the dining salon with unmistakable Italian presence and relaxed ergonomic generosity."
   },
@@ -139,8 +140,8 @@ export const initialProducts = [
     collection: "Venezia Bouclé Suite",
     collectionSlug: "venezia-boucle",
     badge: "Signature Collection",
-    price: 6800,
-    currency: "USD",
+    price: 540000,
+    currency: "INR",
     rating: 4.99,
     reviewsCount: 38,
     dimensions: {
@@ -171,8 +172,8 @@ export const initialProducts = [
     image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80",
     gallery: [
       "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1540518614846-7ede433c4ef8?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80"
     ],
     story: "Inspired by the low horizons of the Venetian lagoon, Serenissima brings an expansive sense of calm and generous comfort to grand architectural living rooms."
   },
@@ -184,8 +185,8 @@ export const initialProducts = [
     collection: "Venezia Bouclé Suite",
     collectionSlug: "venezia-boucle",
     badge: "Sculptural Icon",
-    price: 5400,
-    currency: "USD",
+    price: 420000,
+    currency: "INR",
     rating: 4.93,
     reviewsCount: 24,
     dimensions: {
@@ -227,8 +228,8 @@ export const initialProducts = [
     collection: "Venezia Bouclé Suite",
     collectionSlug: "venezia-boucle",
     badge: "Best Seller",
-    price: 2450,
-    currency: "USD",
+    price: 195000,
+    currency: "INR",
     rating: 5.0,
     reviewsCount: 34,
     dimensions: {
@@ -269,8 +270,8 @@ export const initialProducts = [
     collection: "Tuscan Living Ensemble",
     collectionSlug: "tuscan-living",
     badge: "Rare Marble",
-    price: 3600,
-    currency: "USD",
+    price: 285000,
+    currency: "INR",
     rating: 4.89,
     reviewsCount: 22,
     dimensions: {
@@ -295,9 +296,9 @@ export const initialProducts = [
     inStock: false,
     leadTime: "Made to order (4 weeks)",
     heroHighlight: false,
-    image: "https://images.unsplash.com/photo-1533779283484-8da4940aa3cb?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1533779283484-8da4940aa3cb?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1200&q=80"
     ],
     story: "A collision of Earth's noblest materials. Solis anchors breakfast solariums and intimate dining rooms with unmistakable sculptural authority."
@@ -310,8 +311,8 @@ export const initialProducts = [
     collection: "Tuscan Living Ensemble",
     collectionSlug: "tuscan-living",
     badge: "Artisan Craft",
-    price: 2250,
-    currency: "USD",
+    price: 175000,
+    currency: "INR",
     rating: 4.97,
     reviewsCount: 19,
     dimensions: {
@@ -352,8 +353,8 @@ export const initialProducts = [
     collection: "Tuscan Living Ensemble",
     collectionSlug: "tuscan-living",
     badge: "Bespoke Joinery",
-    price: 5200,
-    currency: "USD",
+    price: 395000,
+    currency: "INR",
     rating: 4.92,
     reviewsCount: 19,
     dimensions: {
@@ -394,8 +395,8 @@ export const initialProducts = [
     collection: "Tuscan Living Ensemble",
     collectionSlug: "tuscan-living",
     badge: "Museum Grade",
-    price: 1380,
-    currency: "USD",
+    price: 98000,
+    currency: "INR",
     rating: 4.97,
     reviewsCount: 51,
     dimensions: {

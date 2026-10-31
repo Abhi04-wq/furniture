@@ -226,10 +226,10 @@ export function QuickViewModal() {
               {/* Price & Installments */}
               <div className="mt-3 flex items-baseline space-x-3">
                 <span className="font-nav text-2xl font-medium text-primary">
-                  ${quickViewProduct.price.toLocaleString()} {quickViewProduct.currency}
+                  ₹{quickViewProduct.price.toLocaleString('en-IN')} INR
                 </span>
                 <span className="text-xs text-taupe font-body">
-                  or 4 interest-free payments of <span className="font-nav font-semibold text-primary">${installmentPrice}</span>
+                  or 4 interest-free payments of <span className="font-nav font-semibold text-primary">₹{installmentPrice.toLocaleString('en-IN')}</span>
                 </span>
               </div>
 
@@ -360,7 +360,7 @@ export function QuickViewModal() {
                           {relProduct.name}
                         </h4>
                         <span className="font-nav text-xs font-medium text-primary block mt-0.5">
-                          ${relProduct.price.toLocaleString()} USD
+                          ₹{relProduct.price.toLocaleString('en-IN')} INR
                         </span>
                         <span className="text-[10px] text-gold-primary font-nav uppercase tracking-wider flex items-center space-x-1 mt-0.5 font-medium">
                           <span>View Piece</span>
@@ -405,7 +405,7 @@ export function QuickViewModal() {
               >
                 <ShoppingBag className="w-4 h-4 transition-transform group-hover:scale-110" />
                 <span>
-                  Acquire ({quantity}) · ${(quickViewProduct.price * quantity).toLocaleString()} USD
+                  Acquire ({quantity}) · ₹{(quickViewProduct.price * quantity).toLocaleString('en-IN')} INR
                 </span>
               </button>
             </div>

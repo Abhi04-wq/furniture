@@ -127,7 +127,7 @@ export function CartDrawer() {
                           {product.name}
                         </h4>
                         <span className="font-nav text-sm font-medium text-primary">
-                          ${(product.price * quantity).toLocaleString()}
+                          ₹{(product.price * quantity).toLocaleString('en-IN')}
                         </span>
                       </div>
                       <p className="font-nav text-[11px] text-secondary tracking-wider uppercase mt-0.5">
@@ -179,7 +179,7 @@ export function CartDrawer() {
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-nav text-luxury-muted uppercase tracking-wider">
                   <span>Subtotal</span>
-                  <span>${subtotal.toLocaleString()}</span>
+                  <span>₹{subtotal.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex justify-between text-xs font-nav text-luxury-muted uppercase tracking-wider">
                   <span>White-Glove Courier</span>
@@ -188,7 +188,7 @@ export function CartDrawer() {
                 <div className="flex justify-between text-base font-heading text-primary pt-2 border-t border-luxury-border/60">
                   <span>Total Investment</span>
                   <span className="font-nav font-medium">
-                    ${subtotal.toLocaleString()} USD
+                    ₹{subtotal.toLocaleString('en-IN')} INR
                   </span>
                 </div>
               </div>

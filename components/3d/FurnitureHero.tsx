@@ -30,10 +30,10 @@ export function FurnitureHero() {
       trigger: triggerRef.current,
       pin: pinTargetRef.current,
       start: 'top top',
-      end: '+=6000', // 6000px of dedicated pinned scroll travel for rich duration
+      end: '+=5200', // Prolonged smooth scroll travel without dragging
       pinSpacing: true,
       anticipatePin: 1,
-      scrub: 1.0, // Smooth buttery scrubbing with Lenis
+      scrub: 0.6, // Silky smooth response matching Lenis
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         setScrollProgress(self.progress);

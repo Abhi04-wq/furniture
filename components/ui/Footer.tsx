@@ -18,8 +18,8 @@ export function Footer() {
               ATELIER KASAMA
             </span>
             <p className="font-body text-sm text-surface/70 font-light leading-relaxed max-w-sm">
-              Conceived in Milan and Stockholm. Sculpting solid European hardwoods,
-              hand-patinated unlacquered brass, and full-grain Tuscan hides into
+              Conceived in Mumbai and New Delhi. Sculpting solid European & Indian hardwoods,
+              hand-patinated unlacquered brass, and bespoke Italian upholstery into
               living architectural heirlooms.
             </p>
             <div className="font-nav text-xs uppercase tracking-widest text-secondary">
@@ -31,48 +31,48 @@ export function Footer() {
             {/* Showroom 1 */}
             <div className="space-y-2">
               <span className="font-nav uppercase tracking-widest text-secondary block font-semibold">
-                Milano
+                Mumbai
               </span>
               <p className="text-surface/60 font-body leading-relaxed">
-                Via Montenapoleone 18<br />
-                20121 Milano, Italia<br />
-                +39 02 8492 8110
+                Apollo Bunder, Colaba<br />
+                Mumbai, MH 400001<br />
+                +91 22 2288 4100
               </p>
             </div>
 
             {/* Showroom 2 */}
             <div className="space-y-2">
               <span className="font-nav uppercase tracking-widest text-secondary block font-semibold">
-                New York
+                New Delhi
               </span>
               <p className="text-surface/60 font-body leading-relaxed">
-                68 Franklin Street<br />
-                Tribeca, NY 10013<br />
-                +1 212 940 3320
+                The Chanakya, Chanakyapuri<br />
+                New Delhi, DL 110021<br />
+                +91 11 4100 8200
               </p>
             </div>
 
             {/* Showroom 3 */}
             <div className="space-y-2">
               <span className="font-nav uppercase tracking-widest text-secondary block font-semibold">
-                Tokyo
+                Bengaluru
               </span>
               <p className="text-surface/60 font-body leading-relaxed">
-                5-7-22 Minami-Aoyama<br />
-                Minato-ku, Tokyo 107<br />
-                +81 3 5468 9011
+                Lavelle Road, Ashok Nagar<br />
+                Bengaluru, KA 560001<br />
+                +91 80 4120 7300
               </p>
             </div>
 
             {/* Showroom 4 */}
             <div className="space-y-2">
               <span className="font-nav uppercase tracking-widest text-secondary block font-semibold">
-                Stockholm
+                Kolkata
               </span>
               <p className="text-surface/60 font-body leading-relaxed">
-                Strandvägen 7A<br />
-                114 56 Stockholm<br />
-                +46 8 661 4050
+                Alipore Park Road<br />
+                Kolkata, WB 700027<br />
+                +91 33 2479 6500
               </p>
             </div>
           </div>
@@ -135,7 +135,7 @@ export function Footer() {
 
         {/* BOTTOM LEGAL & SCROLL TO TOP */}
         <div className="pt-8 border-t border-surface/10 flex flex-col sm:flex-row items-center justify-between text-xs font-nav text-surface/50 gap-4">
-          <p>© 2026 Atelier Kasama S.r.l. All rights reserved. Registered in Milan & Stockholm.</p>
+          <p>© 2026 Atelier Kasama Pvt. Ltd. All rights reserved. Registered in Mumbai & New Delhi.</p>
 
           <div className="flex items-center space-x-6">
             <span>Crafted to Come Together.</span>
