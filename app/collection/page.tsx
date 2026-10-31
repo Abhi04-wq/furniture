@@ -6,16 +6,12 @@ import { FeaturedCollection } from '@/components/ui/FeaturedCollection';
 import { QuickViewModal } from '@/components/ui/QuickViewModal';
 import { CartDrawer } from '@/components/ui/CartDrawer';
 import { Footer } from '@/components/ui/Footer';
-import { AudioPlayer } from '@/components/ui/AudioPlayer';
 import Link from 'next/link';
 import { Sparkles, ArrowLeft, Shield, Truck, Compass } from 'lucide-react';
 
 export default function CollectionPage() {
   return (
     <main className="relative min-h-screen bg-background text-primary">
-      {/* AMBIENT AUDIO PLAYER */}
-      <AudioPlayer />
-
       {/* LUXURY NAVBAR */}
       <Navbar />
 
@@ -50,6 +46,16 @@ export default function CollectionPage() {
               <p className="font-body text-base sm:text-lg text-primary/75 mt-4 max-w-2xl font-light leading-relaxed">
                 Sculptural furniture engineered for timeless architectural spaces. Explore our complete gallery of dining tables, luxury upholstered chairs, low-slung modular sofas, credenzas, and museum-grade lighting.
               </p>
+
+              <div className="mt-6 flex items-center space-x-4">
+                <Link
+                  href="/"
+                  className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#5C3E14] text-white hover:bg-[#8C5E1E] transition-all duration-300 text-xs font-nav uppercase tracking-wider font-semibold shadow-md"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Return to 3D Hero Assembly</span>
+                </Link>
+              </div>
             </div>
 
             {/* Atelier Guarantees Pill */}

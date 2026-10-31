@@ -5,6 +5,10 @@ import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useFurnitureStore } from '../hooks/useFurnitureStore';
 
+function easeInOutCubic(x: number): number {
+  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+}
+
 export function CameraController() {
   const { camera, size } = useThree();
   const scrollProgress = useFurnitureStore((state) => state.scrollProgress);
@@ -52,47 +56,64 @@ export function CameraController() {
       // DEFAULT: CINEMATIC SCROLL TIMELINE
       // Standardized around y = 1.05 lookAt for balanced floor, furniture, chandeliers & marble framing
       if (p < 0.18) {
-        // Stage 1 -> 2: Wide cinematic overview of disassembled floating elements
-        const t = p / 0.18;
+        // Stage 1: Wide perspective sweeping gently as user begins scrolling
+        const t = Math.max(0, p / 0.18);
+        const easeT = easeInOutCubic(t);
         targetCamPos.current.set(
-          THREE.MathUtils.lerp(0.0, -1.2, t) + parallaxX,
-          THREE.MathUtils.lerp(2.2, 2.0, t) + mobileHeightOffset + parallaxY,
-          THREE.MathUtils.lerp(7.6, 7.0, t) * mobileDistanceMult
+          THREE.MathUtils.lerp(0.0, -1.2, easeT) + parallaxX,
+          THREE.MathUtils.lerp(2.2, 2.0, easeT) + mobileHeightOffset + parallaxY,
+          THREE.MathUtils.lerp(7.6, 7.0, easeT) * mobileDistanceMult
         );
         targetLookAt.current.set(0, 1.05, -0.2);
-      } else if (p < 0.48) {
+      } else if (p < 0.46) {
         // Stage 3: Table architecture assembly & brass butterfly keys
-        const t = (p - 0.18) / 0.30;
+        const t = (p - 0.18) / 0.28;
         targetCamPos.current.set(
           THREE.MathUtils.lerp(-1.2, 2.2, t) + parallaxX,
           THREE.MathUtils.lerp(2.0, 1.85, t) + mobileHeightOffset + parallaxY,
           THREE.MathUtils.lerp(7.0, 6.2, t) * mobileDistanceMult
         );
         targetLookAt.current.set(0, 0.95, -0.2);
-      } else if (p < 0.82) {
+      } else if (p < 0.75) {
         // Stage 4: Framing the 6 chairs sequential 3D assembly around the walnut table
-        const t = (p - 0.48) / 0.34;
+        const t = (p - 0.46) / 0.29;
         targetCamPos.current.set(
-          THREE.MathUtils.lerp(2.2, -2.0, t) + parallaxX,
+          THREE.MathUtils.lerp(2.2, -1.8, t) + parallaxX,
           THREE.MathUtils.lerp(1.85, 1.9, t) + mobileHeightOffset + parallaxY,
           THREE.MathUtils.lerp(6.2, 6.4, t) * mobileDistanceMult
         );
         targetLookAt.current.set(0, 0.95, -0.2);
       } else {
-        // Stage 5: Final Luxury Italian Dining Salon Masterpiece
-        // Symmetrical architecture, visible dark walnut vitrines on both sides,
-        // bookmatched Calacatta Gold marble, glowing brass chandeliers above, and tucked chairs!
-        const finalP = (p - 0.82) / 0.18; // 0 to 1
-        const orbitAngle = -0.18 + finalP * 0.36 + Math.sin(time * 0.15) * 0.04;
-        const radius = 6.6 * mobileDistanceMult;
-        const height = 1.95 + mobileHeightOffset + parallaxY;
+        // Stage 5: Masterpiece Joinery Detail View (p: 0.75 -> 1.00)
+        // Camera smoothly glides from wide shot directly into the intimate Joinery Detail angle,
+        // showcasing the 3D golden brand text ATELIER KASAMA and the brass dovetail keys on the tabletop!
+        const t = Math.max(0, Math.min(1, (p - 0.75) / 0.12));
+        const ease = easeInOutCubic(t);
+
+        // Start at wide shot [-1.8, 1.9, 6.4], swoop smoothly into close-up Joinery Detail view [0.55, 1.25, 1.25]
+        const widePos = new THREE.Vector3(-1.8, 1.9 + mobileHeightOffset, 6.4 * mobileDistanceMult);
+        const detailPos = new THREE.Vector3(
+          0.55 * mobileDistanceMult,
+          1.25 + mobileHeightOffset,
+          1.25 * mobileDistanceMult
+        );
+
+        // Subtle slow cinematic orbit while admiring the joinery detail
+        const orbitP = Math.max(0, (p - 0.84) / 0.16);
+        const orbitX = Math.sin(orbitP * 0.4 + time * 0.1) * 0.12;
+        const orbitZ = Math.cos(orbitP * 0.4 + time * 0.1) * 0.08;
 
         targetCamPos.current.set(
-          Math.sin(orbitAngle) * radius + parallaxX,
-          height,
-          Math.cos(orbitAngle) * radius
+          THREE.MathUtils.lerp(widePos.x, detailPos.x + orbitX, ease) + parallaxX,
+          THREE.MathUtils.lerp(widePos.y, detailPos.y, ease) + parallaxY,
+          THREE.MathUtils.lerp(widePos.z, detailPos.z + orbitZ, ease)
         );
-        targetLookAt.current.set(0, 1.05, -0.3);
+
+        targetLookAt.current.set(
+          THREE.MathUtils.lerp(0, 0, ease),
+          THREE.MathUtils.lerp(0.95, 0.84, ease),
+          THREE.MathUtils.lerp(-0.2, 0.0, ease)
+        );
       }
     }
 

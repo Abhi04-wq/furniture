@@ -271,3 +271,142 @@ export function createBeigeFabricTexture(): THREE.CanvasTexture {
   texture.repeat.set(6, 6);
   return texture;
 }
+
+// Procedural 3D Golden Brand Text Texture for the Tabletop
+export function createGoldBrandTextTexture(): THREE.CanvasTexture {
+  if (typeof document === 'undefined') {
+    return new THREE.CanvasTexture({} as any);
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 2048;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d')!;
+
+  // 1. Rich brushed Champagne Gold Brass background
+  const goldGrad = ctx.createLinearGradient(0, 0, 2048, 512);
+  goldGrad.addColorStop(0.0, '#D4AF37');
+  goldGrad.addColorStop(0.2, '#F5E6B3');
+  goldGrad.addColorStop(0.4, '#C6A66B');
+  goldGrad.addColorStop(0.6, '#FFF6D6');
+  goldGrad.addColorStop(0.8, '#BA8B1E');
+  goldGrad.addColorStop(1.0, '#D4AF37');
+  ctx.fillStyle = goldGrad;
+  ctx.fillRect(0, 0, 2048, 512);
+
+  // Subtle horizontal brushed brass metal grain lines
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.10)';
+  for (let i = 0; i < 512; i += 4) {
+    if (Math.random() > 0.35) {
+      ctx.fillRect(0, i, 2048, 1.5);
+    }
+  }
+  ctx.fillStyle = 'rgba(100, 65, 15, 0.08)';
+  for (let i = 0; i < 512; i += 5) {
+    if (Math.random() > 0.35) {
+      ctx.fillRect(0, i, 2048, 1.2);
+    }
+  }
+
+  // 2. Outer engraved deep dark espresso borders
+  ctx.strokeStyle = '#201206';
+  ctx.lineWidth = 8;
+  ctx.strokeRect(28, 20, 1992, 472);
+
+  // Inner thin accent line
+  ctx.lineWidth = 3;
+  ctx.strokeRect(46, 38, 1956, 436);
+
+  // Corner decorative rivets / screw heads
+  const corners = [
+    [46, 38],
+    [2002, 38],
+    [46, 474],
+    [2002, 474],
+  ];
+  corners.forEach(([cx, cy]) => {
+    // Rivet outer dark circle
+    ctx.fillStyle = '#201206';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Rivet inner gold reflection
+    ctx.fillStyle = '#FFE599';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Rivet slot
+    ctx.strokeStyle = '#201206';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(cx - 6, cy);
+    ctx.lineTo(cx + 6, cy);
+    ctx.stroke();
+  });
+
+  // 3. Header Text: "✦ HAUTE ÉBÉNISTERIE · EST. 1994 ✦"
+  ctx.save();
+  ctx.font = '700 44px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#201206';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('✦   HAUTE ÉBÉNISTERIE · EST. 1994   ✦', 1024, 110);
+  ctx.restore();
+
+  // 4. Central Brand Title: "ATELIER KASAMA"
+  // Deep luxury dark engraving with subtle gold relief shadow
+  ctx.save();
+  ctx.font = '900 155px "Playfair Display", Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  // Light gold bottom highlight for 3D recessed depth into the gold
+  ctx.fillStyle = 'rgba(255, 252, 230, 0.9)';
+  ctx.fillText('ATELIER  KASAMA', 1024, 250);
+
+  // Deep dark espresso engraved text
+  ctx.fillStyle = '#160B04';
+  ctx.fillText('ATELIER  KASAMA', 1024, 245);
+  ctx.restore();
+
+  // 5. Decorative separator rule with central diamond
+  ctx.save();
+  ctx.strokeStyle = '#201206';
+  ctx.lineWidth = 3.5;
+  ctx.beginPath();
+  ctx.moveTo(340, 345);
+  ctx.lineTo(950, 345);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(1098, 345);
+  ctx.lineTo(1708, 345);
+  ctx.stroke();
+
+  // Center diamond
+  ctx.fillStyle = '#201206';
+  ctx.beginPath();
+  ctx.moveTo(1024, 330);
+  ctx.lineTo(1040, 345);
+  ctx.lineTo(1024, 360);
+  ctx.lineTo(1008, 345);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  // 6. Subtitle: "MUMBAI · NEW DELHI · BENGALURU"
+  ctx.save();
+  ctx.font = '700 42px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#201206';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('MUMBAI  ·  NEW DELHI  ·  BENGALURU', 1024, 412);
+  ctx.restore();
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}

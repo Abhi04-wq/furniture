@@ -74,7 +74,7 @@ export const useFurnitureStore = create<FurnitureStoreState>((set) => ({
     if (clamped < 0.15) stage = 1;
     else if (clamped < 0.30) stage = 2;
     else if (clamped < 0.50) stage = 3;
-    else if (clamped < 0.82) stage = 4;
+    else if (clamped < 0.74) stage = 4;
     else stage = 5;
 
     set({ scrollProgress: clamped, activeStage: stage });
@@ -83,7 +83,7 @@ export const useFurnitureStore = create<FurnitureStoreState>((set) => ({
   cameraMode: 'cinematic',
   setCameraMode: (mode) => set({ cameraMode: mode }),
 
-  soundEnabled: true,
+  soundEnabled: false,
   toggleSound: () => set((state) => ({ soundEnabled: !state.soundEnabled })),
 
   isCartOpen: false,

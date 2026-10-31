@@ -30,7 +30,7 @@ export function useLenis() {
     };
 
     gsap.ticker.add(tickerCb);
-    gsap.ticker.lagSmoothing(500, 33);
+    gsap.ticker.lagSmoothing(0); // Lag smoothing off per GSAP+Lenis recommendations to prevent desynchronization
 
     return () => {
       gsap.ticker.remove(tickerCb);

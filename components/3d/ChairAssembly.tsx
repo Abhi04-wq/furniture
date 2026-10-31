@@ -37,34 +37,29 @@ function SingleChair({
   const seatRef = useRef<THREE.Group>(null);
   const backrestRef = useRef<THREE.Group>(null);
 
-  // Scattered broken coordinates in 3D space - Floating high in the luxury salon
+  // Scattered broken coordinates in 3D space - Symmetrical 3-left / 3-right distribution
   const brokenScatter = useMemo(() => {
-    const angle = (index / 6) * Math.PI * 2 + 0.35;
-    const dist = 3.4 + (index % 3) * 0.9;
+    const isLeft = index % 2 === 0;
+    const sideSign = isLeft ? -1 : 1;
+    const tier = Math.floor(index / 2); // 0 (front flank), 1 (mid flank), 2 (back flank)
+
+    // Staggered lateral offsets and elevations for each tier
+    const baseX = sideSign * (4.1 + tier * 0.35);
+    const baseY = 2.3 + tier * 0.45;
+    const baseZ = tier === 0 ? 1.8 : tier === 1 ? 0.3 : -1.2;
+
     return {
       legs: {
-        pos: new THREE.Vector3(
-          Math.cos(angle) * dist,
-          2.4 + (index % 3) * 0.5,
-          Math.sin(angle) * dist
-        ),
-        rot: new THREE.Euler(1.2, 0.7 * index, -1.0),
+        pos: new THREE.Vector3(baseX, baseY, baseZ),
+        rot: new THREE.Euler(1.2, sideSign * (0.8 + tier * 0.4), -sideSign * 1.0),
       },
       seat: {
-        pos: new THREE.Vector3(
-          Math.cos(angle + 0.4) * (dist + 0.5),
-          3.2 + index * 0.2,
-          Math.sin(angle + 0.4) * (dist + 0.5)
-        ),
-        rot: new THREE.Euler(-0.7, 1.1, 0.5),
+        pos: new THREE.Vector3(baseX + sideSign * 0.3, baseY + 0.8, baseZ + 0.3),
+        rot: new THREE.Euler(-0.7, sideSign * 1.1, sideSign * 0.5),
       },
       backrest: {
-        pos: new THREE.Vector3(
-          Math.cos(angle - 0.35) * (dist + 0.8),
-          3.6 + (index % 2) * 0.4,
-          Math.sin(angle - 0.35) * (dist + 0.8)
-        ),
-        rot: new THREE.Euler(0.5, -1.3, 0.8),
+        pos: new THREE.Vector3(baseX - sideSign * 0.2, baseY + 1.2, baseZ - 0.2),
+        rot: new THREE.Euler(0.5, -sideSign * 1.3, sideSign * 0.8),
       },
     };
   }, [index]);
@@ -157,16 +152,34 @@ function SingleChair({
       );
     }
 
-    // 4. STAGE 5 (84% to 100% scroll): Fully assembled chairs glide and tuck neatly around the dining table
-    const tuckP = Math.max(0, Math.min(1, (p - 0.84) / 0.14));
-    const tuckEase = easeInOutCubic(tuckP);
+    // 4. ROOT POSITION: Entrance fly-in (0.03 -> 0.15) & Tucking Docking (0.76 -> 0.82)
+    const isLeft = index % 2 === 0;
+    const sideSign = isLeft ? -1 : 1;
 
-    const rootX = THREE.MathUtils.lerp(basePos[0], tuckedPos[0], tuckEase);
-    const rootY = THREE.MathUtils.lerp(basePos[1], tuckedPos[1], tuckEase);
-    const rootZ = THREE.MathUtils.lerp(basePos[2], tuckedPos[2], tuckEase);
+    if (p < 0.14) {
+      // Grand fly-in entrance from visible side margins ("animation nie asuk aste aste")
+      const entNorm = Math.max(0, Math.min(1, p / 0.14));
+      const entEase = easeInOutCubic(entNorm);
+      const lateralSpawnOffset = (1 - entEase) * (sideSign * 1.8);
+      const verticalSpawnOffset = (1 - entEase) * 0.9;
 
-    rootRef.current.position.set(rootX, rootY, rootZ);
-    rootRef.current.rotation.y = baseRotY;
+      rootRef.current.position.set(lateralSpawnOffset, verticalSpawnOffset, 0);
+      rootRef.current.scale.setScalar(THREE.MathUtils.lerp(0.05, 1.0, entEase));
+      rootRef.current.rotation.y = baseRotY + (1 - entEase) * (sideSign * 0.6);
+    } else {
+      rootRef.current.scale.setScalar(1.0);
+
+      // Chair tucking and docking flush around dining table (0.72 -> 0.78)
+      const tuckP = Math.max(0, Math.min(1, (p - 0.72) / 0.06));
+      const tuckEase = easeInOutCubic(tuckP);
+
+      const rootX = THREE.MathUtils.lerp(basePos[0], tuckedPos[0], tuckEase);
+      const rootY = THREE.MathUtils.lerp(basePos[1], tuckedPos[1], tuckEase);
+      const rootZ = THREE.MathUtils.lerp(basePos[2], tuckedPos[2], tuckEase);
+
+      rootRef.current.position.set(rootX, rootY, rootZ);
+      rootRef.current.rotation.y = baseRotY;
+    }
   });
 
   return (
@@ -281,6 +294,9 @@ function SingleChair({
 }
 
 export function ChairAssembly() {
+  const scrollProgress = useFurnitureStore((state) => state.scrollProgress);
+  const smoothP = useRef(0);
+  const chairsGroupRef = useRef<THREE.Group>(null);
   const [fabricTex, setFabricTex] = useState<THREE.CanvasTexture | undefined>(undefined);
 
   useEffect(() => {
@@ -288,8 +304,24 @@ export function ChairAssembly() {
     setFabricTex(tex);
   }, []);
 
+  useFrame((state, delta) => {
+    smoothP.current = THREE.MathUtils.damp(smoothP.current, scrollProgress, 11, delta);
+    const p = smoothP.current;
+
+    // 0. Initial Screen Cleanliness & Immediate Scroll Entrance
+    // At static load (p <= 0.005), chairs are hidden.
+    // As soon as user scrolls (p > 0.005), chairs become visible and fly inward!
+    if (chairsGroupRef.current) {
+      if (p <= 0.005) {
+        chairsGroupRef.current.visible = false;
+      } else {
+        chairsGroupRef.current.visible = true;
+      }
+    }
+  });
+
   // SIX PREMIUM BEIGE UPHOLSTERED DINING CHAIRS - Sequential 3D Curved Assembly
-  // Generous durations (27% scroll window per chair) with spinning descent ("gurte gurte ase nambe ar fit hbe")
+  // Generous durations with spinning descent ("gurte gurte ase nambe ar fit hbe")
   const chairConfigs: SingleChairProps[] = [
     // South Side (Long Side facing North) - 2 Chairs
     {
@@ -297,16 +329,16 @@ export function ChairAssembly() {
       basePos: [-0.60, 0, 1.35],
       tuckedPos: [-0.60, 0, 0.72],
       baseRotY: Math.PI,
-      timeStart: 0.35,
-      timeEnd: 0.62,
+      timeStart: 0.46,
+      timeEnd: 0.65,
     },
     {
       index: 1,
       basePos: [0.60, 0, 1.35],
       tuckedPos: [0.60, 0, 0.72],
       baseRotY: Math.PI,
-      timeStart: 0.40,
-      timeEnd: 0.67,
+      timeStart: 0.50,
+      timeEnd: 0.68,
     },
 
     // North Side (Long Side facing South) - 2 Chairs
@@ -315,16 +347,16 @@ export function ChairAssembly() {
       basePos: [-0.60, 0, -1.35],
       tuckedPos: [-0.60, 0, -0.72],
       baseRotY: 0,
-      timeStart: 0.46,
-      timeEnd: 0.72,
+      timeStart: 0.54,
+      timeEnd: 0.71,
     },
     {
       index: 3,
       basePos: [0.60, 0, -1.35],
       tuckedPos: [0.60, 0, -0.72],
       baseRotY: 0,
-      timeStart: 0.52,
-      timeEnd: 0.77,
+      timeStart: 0.58,
+      timeEnd: 0.74,
     },
 
     // West Head Chair (Short End facing East) - 1 Chair
@@ -333,8 +365,8 @@ export function ChairAssembly() {
       basePos: [-1.65, 0, 0],
       tuckedPos: [-1.22, 0, 0],
       baseRotY: Math.PI / 2,
-      timeStart: 0.58,
-      timeEnd: 0.82,
+      timeStart: 0.62,
+      timeEnd: 0.77,
     },
 
     // East Head Chair (Short End facing West) - 1 Chair
@@ -343,13 +375,13 @@ export function ChairAssembly() {
       basePos: [1.65, 0, 0],
       tuckedPos: [1.22, 0, 0],
       baseRotY: -Math.PI / 2,
-      timeStart: 0.64,
-      timeEnd: 0.86,
+      timeStart: 0.66,
+      timeEnd: 0.79,
     },
   ];
 
   return (
-    <group name="six-chairs-assembly">
+    <group ref={chairsGroupRef} name="six-chairs-assembly">
       {chairConfigs.map((cfg) => (
         <SingleChair
           key={`chair-six-${cfg.index}`}

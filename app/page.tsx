@@ -15,7 +15,6 @@ import { NewsletterSection } from '@/components/ui/NewsletterSection';
 import { Footer } from '@/components/ui/Footer';
 import { CartDrawer } from '@/components/ui/CartDrawer';
 import { QuickViewModal } from '@/components/ui/QuickViewModal';
-import { AudioPlayer } from '@/components/ui/AudioPlayer';
 
 export default function Home() {
   // Initialize Lenis smooth scroll coordinated with GSAP ScrollTrigger
@@ -23,9 +22,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-background">
-      {/* AMBIENT SOUND GENERATOR */}
-      <AudioPlayer />
-
       {/* LUXURY MINIMAL NAVBAR */}
       <Navbar />
 

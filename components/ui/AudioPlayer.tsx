@@ -19,7 +19,6 @@ export function AudioPlayer() {
   const glideFilterRef = useRef<BiquadFilterNode | null>(null);
 
   const prevProgressRef = useRef<number>(0);
-  const lastVelocityTimeRef = useRef<number>(0);
   const lastScrollTimeRef = useRef<number>(0);
 
   // Trigger tracking so milestone sounds only fire once per threshold cross
@@ -47,7 +46,7 @@ export function AudioPlayer() {
         ambientGain.connect(ctx.destination);
         ambientGainRef.current = ambientGain;
 
-        // Warm harmonic chord (A2 - 110Hz & E3 - 164.8Hz)
+        // Warm harmonic chord (A2 - 110Hz & E3 - 164.8Hz & A3 - 220Hz)
         [110, 164.81, 220].forEach((freq, idx) => {
           const osc = ctx.createOscillator();
           const oscGain = ctx.createGain();
@@ -170,7 +169,6 @@ export function AudioPlayer() {
 
   // Sound 2: Chair Sequence Glide & Floor Lock
   const playChairDock = (chairIndex: number) => {
-    // Each pair of chairs has a slightly higher pitched harmonic signature
     const pitch = 0.95 + chairIndex * 0.08;
     playWoodImpact(pitch, false);
   };
@@ -287,19 +285,19 @@ export function AudioPlayer() {
       triggeredMilestones.current.chair34 = false;
     }
 
-    // Milestone E: Chairs 5 & 6 tuck into place (Stage 4 end ~0.76)
-    if (p >= 0.76 && prev < 0.76 && !triggeredMilestones.current.chair56) {
+    // Milestone E: Chairs 5 & 6 tuck into place (Stage 4 end ~0.78)
+    if (p >= 0.78 && prev < 0.78 && !triggeredMilestones.current.chair56) {
       triggeredMilestones.current.chair56 = true;
       playChairDock(3);
-    } else if (p < 0.72) {
+    } else if (p < 0.74) {
       triggeredMilestones.current.chair56 = false;
     }
 
-    // Milestone F: Masterpiece Fully Assembled (Stage 5 completion ~0.92)
-    if (p >= 0.92 && prev < 0.92 && !triggeredMilestones.current.masterpiece) {
+    // Milestone F: Journey View Masterpiece Complete (Stage 5 completion ~0.74)
+    if (p >= 0.74 && prev < 0.74 && !triggeredMilestones.current.masterpiece) {
       triggeredMilestones.current.masterpiece = true;
       playMasterpieceChord();
-    } else if (p < 0.86) {
+    } else if (p < 0.70) {
       triggeredMilestones.current.masterpiece = false;
     }
 
